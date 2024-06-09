@@ -50,7 +50,7 @@ class Grammar extends MySqlGrammar
         $querySegments->push('into table ' . $this->wrapTable($table));
 
         if ($charset = $query->getCharset()) {
-            $querySegments->push('character set ' . $this->quoteString($charset));
+            $querySegments->push('character set ' . addslashes($charset));
         }
 
         $querySegments->push($this->compileFields(

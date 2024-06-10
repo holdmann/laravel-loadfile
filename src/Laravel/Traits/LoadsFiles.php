@@ -31,6 +31,27 @@ trait LoadsFiles
         return $builder;
     }
 
+    /**
+     * @param string $file
+     * @param bool|null $local
+     * @return Builder
+     */
+    public static function loadXmlBuilder(string $file, ?bool $local = null): Builder
+    {
+        /** @var Builder $builder */
+        $builder = app(Builder::class);
+
+        $model = app(static::class);
+
+        $builder->connection($model->getConnectionName())
+            ->xml($file, $local)
+            ->into($model->getTable());
+
+        $model->loadFileOptions($builder);
+
+        return $builder;
+    }
+
     public function loadFileOptions(Builder $builder): void
     {
         //
